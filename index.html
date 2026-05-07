@@ -1,0 +1,957 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificare Sistem Gestiune Apartamente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 22px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        header h1 {
+            color: #2C3E50;
+            font-size: 2.6em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #7F8C8D;
+            font-size: 1.05em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav a.active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: none;
+            animation: fadeIn 0.45s ease-out;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #2C3E50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            color: #2C3E50;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 16px;
+        }
+
+        h4 {
+            color: #667eea;
+            font-size: 1.15em;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        p, li {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            background: #f8f9ff;
+            border: 1px solid #dce0ee;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 20px;
+            transition: all 0.24s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.12);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .mockup-panel {
+            background: #f4f7ff;
+            border: 2px solid #d8dcee;
+            border-radius: 18px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .mockup-panel .panel-label {
+            position: absolute;
+            top: -16px;
+            left: 20px;
+            background: white;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #667eea;
+            color: #33415c;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .device-choice {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .device-card {
+            background: #fff;
+            border: 2px solid #dce0ee;
+            border-radius: 18px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 220px;
+        }
+
+        .device-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(102, 126, 234, 0.14);
+        }
+
+        .device-card.active {
+            border-color: #f093fb;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f1ff 100%);
+        }
+
+        .device-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #2C3E50;
+        }
+
+        .device-card p {
+            color: #6b7280;
+            margin-bottom: 18px;
+        }
+
+        .device-card span {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4338ca;
+            font-weight: 700;
+        }
+
+        .login-box {
+            max-width: 520px;
+            margin: 25px auto 0;
+            background: #ffffff;
+            border: 1px solid #dce0ee;
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .login-box h3 {
+            margin-bottom: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #dce0ee;
+            font-size: 1em;
+            transition: border-color 0.25s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.28);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-small {
+            padding: 10px 18px;
+            font-size: 0.95em;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        .status-active { background: #dafbe4; color: #1f7a3f; }
+        .status-unpaid { background: #fde8e8; color: #b91c1c; }
+        .status-restant { background: #fff4e5; color: #b95c00; }
+        .status-finalizat { background: #e6f4ff; color: #0f4c81; }
+        .status-liber { background: #f3f4f6; color: #4b5563; }
+
+        .app-preview {
+            display: grid;
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .app-view.desktop {
+            height: 560px;
+            border-radius: 24px;
+            border: 18px solid #2C3E50;
+            background: #f4f7ff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-view.desktop::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 6px;
+            border-radius: 999px;
+            background: #dce0ee;
+        }
+
+        .app-view.mobile {
+            width: 320px;
+            border-radius: 40px;
+            border: 18px solid #2C3E50;
+            background: #f4f7ff;
+            overflow: hidden;
+            position: relative;
+            min-height: 640px;
+            justify-self: center;
+            margin: 0 auto;
+        }
+
+        .app-view.mobile::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 8px;
+            border-radius: 999px;
+            background: #dce0ee;
+        }
+
+        .app-screen {
+            position: absolute;
+            inset: 0;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .app-screen h3 {
+            margin-bottom: 18px;
+        }
+
+        .app-screen .module-card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .app-screen .module-card h4 {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #1f2937;
+        }
+
+        .app-screen .module-card p {
+            color: #4b5563;
+            font-size: 0.95em;
+        }
+
+        .app-screen table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .app-screen th,
+        .app-screen td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .app-screen th {
+            background: #eef2ff;
+            font-weight: 700;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            align-items: end;
+            margin-top: 14px;
+        }
+
+        .filter-row .form-group {
+            margin-bottom: 0;
+        }
+
+        .welcome-bar {
+            background: #eef2ff;
+            border: 1px solid #d8dcee;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .welcome-bar strong {
+            color: #1f2937;
+        }
+
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .view-toggle button {
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 0.9em;
+        }
+
+        .view-toggle button.active {
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.16);
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            margin: 18px 0;
+            border-radius: 10px;
+            color: #856404;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+            color: #0c5460;
+        }
+
+        .danger {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 18px;
+            border-radius: 14px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .app-view.desktop {
+                height: 440px;
+            }
+
+            .app-screen {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                width: 100%;
+            }
+
+            .device-card {
+                min-height: auto;
+            }
+
+            .app-preview {
+                display: block;
+            }
+
+            .app-view.mobile {
+                width: 100%;
+                min-height: 600px;
+            }
+
+            .app-view.desktop {
+                width: 100%;
+                height: 420px;
+                border-width: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planificare Aplicație Gestiune Apartamente</h1>
+            <p>Alege între vizualizare mobile sau desktop, autentifică-te și vezi mockup-ul aplicației în acțiune.</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a onclick="showSection('prezentare', event)" class="active">Prezentare</a></li>
+                <li><a onclick="showSection('functionalitati', event)">Funcționalități</a></li>
+                <li><a onclick="showSection('baza-date', event)">Bază Date</a></li>
+                <li><a onclick="showSection('arhitectura', event)">Arhitectură</a></li>
+                <li><a onclick="showSection('flux', event)">Flux Utilizator</a></li>
+                <li><a onclick="showSection('app', event)">Aplicație</a></li>
+            </ul>
+        </nav>
+
+        <section id="prezentare" class="active">
+            <h2>🎯 Prezentare Generală</h2>
+            <p>Acesta este un prototip care prezintă planificarea pentru un sistem de gestiune apartamente, cu module pentru facturi, chirii, întreținere, documente și chiriași.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Obiective</h3>
+                    <ul>
+                        <li>Centralizare informații apartamente și chiriași</li>
+                        <li>Gestionare facturi și chirii rapidă</li>
+                        <li>Planificare mentenanță și stocare documente</li>
+                        <li>Interfață prietenoasă și vizuală pentru mobil și desktop</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Tehnologii</h3>
+                    <ul>
+                        <li>HTML5, CSS3, JavaScript</li>
+                        <li>PHP</li>
+                        <li>MySQL</li>
+                        <li>Apache / HTTP</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="functionalitati">
+            <h2>🧩 Funcționalități și Module</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Chiriași</h3>
+                    <p>Adăugare, editare, vizualizare chiriași, contracte și istoric plăți.</p>
+                </div>
+                <div class="card">
+                    <h3>Facturi</h3>
+                    <p>Gestionare facturi utilități, scadențe și rapoarte de plăți.</p>
+                </div>
+                <div class="card">
+                    <h3>Chirii</h3>
+                    <p>Urmărire plăți chirii, restanțe și rapoarte venit.</p>
+                </div>
+                <div class="card">
+                    <h3>Întreținere</h3>
+                    <p>Programare și monitorizare lucrări de mentenanță.</p>
+                </div>
+                <div class="card">
+                    <h3>Documente</h3>
+                    <p>Stocare contracte și acte cu căutare și status expirare.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="baza-date">
+            <h2>🗄️ Schema Bazei de Date</h2>
+            <p>Schema este construită pe tabele separate pentru a păstra datele relaționale curate și ușor de extins.</p>
+            <div class="code-block">
+                <strong>Tenants:</strong> id, nume, email, telefon, contract start/end, status<br>
+                <strong>Apartments:</strong> id, adresă, camere, suprafață, status, tenant_id<br>
+                <strong>Invoices:</strong> id, apartment_id, tip, sumă, data scadență, status<br>
+                <strong>Rents:</strong> id, apartment_id, tenant_id, lună, sumă, status<br>
+                <strong>Maintenance:</strong> id, apartment_id, descriere, data, status, cost<br>
+                <strong>Documents:</strong> id, apartment_id, tip, nume fișier, path, expirare
+            </div>
+        </section>
+
+        <section id="arhitectura">
+            <h2>🏗️ Arhitectură Tehnică</h2>
+            <p>Aplicația este gândită modular: frontend static pentru mockup și backend PHP/MySQL pentru implementare reală.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Structură fișiere</h3>
+                    <ul>
+                        <li><strong>index.php</strong> - Dashboard real</li>
+                        <li><strong>css/</strong> - Stiluri</li>
+                        <li><strong>js/</strong> - Funcționalitate</li>
+                        <li><strong>php/</strong> - CRUD și API</li>
+                        <li><strong>Specs/</strong> - Documentație</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Principii</h3>
+                    <ul>
+                        <li>Separare logică / prezentare</li>
+                        <li>Interfață responsivă</li>
+                        <li>Securitate și validare</li>
+                        <li>Filtrare și căutare avansată</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="flux">
+            <h2>🔄 Flux Utilizator</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Step 1</h3>
+                    <p>Alege view: mobil sau desktop.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 2</h3>
+                    <p>Autentifică-te cu nume de utilizator și parolă.</p>
+                </div>
+                <div class="card">
+                    <h3>Step 3</h3>
+                    <p>Folosește filtre pentru a vedea modulele și stările relevante.</p>
+                </div>
+            </div>
+            <div class="flow-diagram">Alege View → Autentificare → Dashboard → Module → Filtrare → Acțiuni</div>
+        </section>
+
+        <section id="app">
+            <h2>📱 Aplicație Demo</h2>
+            <p>Alege un view, autenfică-te și continuă în aplicație cu filtre de modul și status.</p>
+
+            <div class="device-choice">
+                <div id="device-mobile" class="device-card" onclick="selectView('mobile')">
+                    <h3>Mobile App</h3>
+                    <p>Vizualizare compactă, optimizată pentru telefon.</p>
+                    <span>View mobil</span>
+                </div>
+                <div id="device-desktop" class="device-card" onclick="selectView('desktop')">
+                    <h3>Desktop App</h3>
+                    <p>Vizualizare amplă, ideală pentru ecran mare.</p>
+                    <span>View desktop</span>
+                </div>
+            </div>
+
+            <div class="login-box" id="login-box">
+                <h3>Autentificare</h3>
+                <p id="selected-view-text">Alege mai întâi un view pentru a continua.</p>
+                <div class="form-group">
+                    <label for="username">Utilizator</label>
+                    <input type="text" id="username" placeholder="Introdu numele tău">
+                </div>
+                <div class="form-group">
+                    <label for="password">Parolă</label>
+                    <input type="password" id="password" placeholder="Introdu parola">
+                </div>
+                <div class="button-group">
+                    <button onclick="loginApp()">Login</button>
+                    <button class="btn-secondary btn-small" onclick="resetApp()">Resetează</button>
+                </div>
+                <p id="login-message" style="margin-top: 14px; color: #b91c1c; display: none;"></p>
+            </div>
+
+            <div id="app-interface" class="hidden">
+                <div class="welcome-bar">
+                    <div>
+                        <strong id="welcome-text">Bun venit, Admin!</strong>
+                        <p style="margin-top: 6px; color: #4b5563;">Ai ales view-ul <span id="view-selected"></span>. Continuă cu filtre și analize.</p>
+                    </div>
+                    <div class="view-toggle">
+                        <button id="preview-mobile" class="active btn-small" onclick="switchPreview('mobile')">Mobile</button>
+                        <button id="preview-desktop" class="btn-small" onclick="switchPreview('desktop')">Desktop</button>
+                    </div>
+                </div>
+
+                <div class="mockup-panel">
+                    <div class="panel-label">Filtre</div>
+                    <div class="filter-row">
+                        <div class="form-group">
+                            <label for="module-filter">Filtrează după modul</label>
+                            <select id="module-filter">
+                                <option value="all">Toate modulele</option>
+                                <option value="Chiriași">Chiriași</option>
+                                <option value="Apartamente">Apartamente</option>
+                                <option value="Facturi">Facturi</option>
+                                <option value="Chirii">Chirii</option>
+                                <option value="Întreținere">Întreținere</option>
+                                <option value="Documente">Documente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status-filter">Filtrează după status</label>
+                            <select id="status-filter">
+                                <option value="all">Toate statusurile</option>
+                                <option value="activ">Activ</option>
+                                <option value="neplătit">Neplătit</option>
+                                <option value="restant">Restant</option>
+                                <option value="finalizat">Finalizat</option>
+                                <option value="liber">Liber</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-filter">Caută</label>
+                            <input id="search-filter" type="text" placeholder="Caută după nume, apartament, tip">
+                        </div>
+                        <div class="button-group" style="align-self: flex-end;">
+                            <button onclick="applyFilters()">Aplică Filtre</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mockup-panel">
+                    <div class="panel-label">Preview Aplicație</div>
+                    <div id="app-preview" class="app-preview">
+                        <div id="desktop-view-panel" class="app-view desktop hidden">
+                            <div class="app-screen" id="desktop-screen">
+                                <h3>Dashboard Desktop</h3>
+                                <div class="module-card">
+                                    <h4>Rezumat Financiar</h4>
+                                    <p>Venit lunar: 5.450 RON | Facturi restante: 3 | Apartamente ocupate: 24</p>
+                                </div>
+                                <div class="module-card">
+                                    <h4>Rapoarte</h4>
+                                    <p>Filtre module, statusuri și căutări aplicate direct în interfață.</p>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr><th>Modul</th><th>Item</th><th>Status</th><th>Acțiune</th></tr>
+                                    </thead>
+                                    <tbody id="desktop-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="mobile-view-panel" class="app-view mobile hidden">
+                            <div class="app-screen" id="mobile-screen">
+                                <h3>Dashboard Mobile</h3>
+                                <div class="module-card">
+                                    <h4>Venit</h4>
+                                    <p>5.450 RON</p>
+                                </div>
+                                <div class="module-card">
+                                    <h4>Facturi</h4>
+                                    <p>3 neplătite</p>
+                                </div>
+                                <div class="module-card">
+                                    <h4>Chirii</h4>
+                                    <p>2 restante</p>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr><th>Item</th><th>Status</th></tr>
+                                    </thead>
+                                    <tbody id="mobile-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 Sistem Gestiune Apartamente | Mockup interactiv fără server</p>
+        </footer>
+    </div>
+
+    <script>
+        let selectedView = null;
+        let currentPreview = 'desktop';
+        const appItems = [
+            { module: 'Chiriași', title: 'Lista chiriași activi', status: 'activ' },
+            { module: 'Facturi', title: 'Factură Gaz Apt 101', status: 'neplătit' },
+            { module: 'Facturi', title: 'Factura Apă Apt 102', status: 'finalizat' },
+            { module: 'Chirii', title: 'Chirie Apt 102', status: 'restant' },
+            { module: 'Întreținere', title: 'Reparare robinet Apt 101', status: 'planificat' },
+            { module: 'Documente', title: 'Contract Apt 101', status: 'activ' },
+            { module: 'Apartamente', title: 'Apt 103 - Liber', status: 'liber' }
+        ];
+
+        function showSection(sectionId, e) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (e && e.target) {
+                e.target.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectView(view) {
+            selectedView = view;
+            document.getElementById('selected-view-text').textContent = `Ai ales view-ul ${view}. Autentifică-te pentru a continua.`;
+            document.getElementById('selected-view-text').style.color = '#334155';
+            document.getElementById('login-message').style.display = 'none';
+            document.getElementById('device-mobile').classList.toggle('active', view === 'mobile');
+            document.getElementById('device-desktop').classList.toggle('active', view === 'desktop');
+            document.getElementById('login-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function loginApp() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const loginMessage = document.getElementById('login-message');
+            if (!selectedView) {
+                loginMessage.textContent = 'Alege mai întâi view-ul mobil sau desktop.';
+                loginMessage.style.display = 'block';
+                return;
+            }
+            if (!username || !password) {
+                loginMessage.textContent = 'Completează ambele câmpuri pentru autentificare.';
+                loginMessage.style.display = 'block';
+                return;
+            }
+            loginMessage.style.display = 'none';
+            document.getElementById('app-interface').classList.remove('hidden');
+            document.getElementById('view-selected').textContent = selectedView;
+            document.getElementById('welcome-text').textContent = `Bun venit, ${username}!`;
+            document.getElementById('desktop-view-panel').classList.toggle('hidden', selectedView !== 'desktop');
+            document.getElementById('mobile-view-panel').classList.toggle('hidden', selectedView !== 'mobile');
+            currentPreview = selectedView;
+            if (selectedView === 'mobile') {
+                document.getElementById('preview-mobile').classList.add('active');
+                document.getElementById('preview-desktop').classList.remove('active');
+            } else {
+                document.getElementById('preview-desktop').classList.add('active');
+                document.getElementById('preview-mobile').classList.remove('active');
+            }
+            renderAppContent();
+            showSection('app');
+        }
+
+        function resetApp() {
+            selectedView = null;
+            currentPreview = 'desktop';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('selected-view-text').textContent = 'Alege mai întâi un view pentru a continua.';
+            document.getElementById('selected-view-text').style.color = '#b91c1c';
+            document.getElementById('app-interface').classList.add('hidden');
+            document.getElementById('device-mobile').classList.remove('active');
+            document.getElementById('device-desktop').classList.remove('active');
+            document.getElementById('login-message').style.display = 'none';
+        }
+
+        function applyFilters() {
+            renderAppContent();
+        }
+
+        function switchPreview(view) {
+            currentPreview = view;
+            document.getElementById('preview-mobile').classList.toggle('active', view === 'mobile');
+            document.getElementById('preview-desktop').classList.toggle('active', view === 'desktop');
+            document.getElementById('desktop-view-panel').classList.toggle('hidden', view !== 'desktop');
+            document.getElementById('mobile-view-panel').classList.toggle('hidden', view !== 'mobile');
+        }
+
+        function renderAppContent() {
+            const moduleFilter = document.getElementById('module-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+            const searchValue = document.getElementById('search-filter').value.toLowerCase();
+
+            const filtered = appItems.filter(item => {
+                const matchesModule = moduleFilter === 'all' || item.module === moduleFilter;
+                const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+                const matchesSearch = item.title.toLowerCase().includes(searchValue) || item.module.toLowerCase().includes(searchValue);
+                return matchesModule && matchesStatus && matchesSearch;
+            });
+
+            const desktopBody = document.getElementById('desktop-table-body');
+            const mobileBody = document.getElementById('mobile-table-body');
+            desktopBody.innerHTML = '';
+            mobileBody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                const emptyRow = `<tr><td colspan="4" style="padding: 16px; color: #6b7280;">Nicio înregistrare găsită.</td></tr>`;
+                desktopBody.innerHTML = emptyRow;
+                mobileBody.innerHTML = `<tr><td colspan="2" style="padding: 16px; color: #6b7280;">Nicio înregistrare găsită.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const statusClass = item.status === 'activ' ? 'status-active'
+                    : item.status === 'neplătit' ? 'status-unpaid'
+                    : item.status === 'restant' ? 'status-restant'
+                    : item.status === 'finalizat' ? 'status-finalizat'
+                    : item.status === 'liber' ? 'status-liber' : 'status-active';
+
+                const desktopRow = `<tr><td>${item.module}</td><td>${item.title}</td><td><span class="status-pill ${statusClass}">${item.status}</span></td><td><button class="btn-small">Vezi</button></td></tr>`;
+                const mobileRow = `<tr><td>${item.title}</td><td><span class="status-pill ${statusClass}">${item.status}</span></td></tr>`;
+                desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+                mobileBody.insertAdjacentHTML('beforeend', mobileRow);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            resetApp();
+            renderAppContent();
+        });
+    </script>
+</body>
+</html>
