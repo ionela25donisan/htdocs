@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versiune Mobilă - Sistem Gestiune Apartamente</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --header-bg: #2c3e50;
+            --header-text: white;
+            --card-bg: #f8f9fa;
+            --border: #dee2e6;
+            --btn-bg: #3498db;
+            --btn-hover: #2980b9;
+            --toggle-color: white;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1b0f2a;
+            --text-color: #f3ecff;
+            --header-bg: #2c1a45;
+            --header-text: #f3ecff;
+            --card-bg: #281a45;
+            --border: #4c3271;
+            --btn-bg: #7f58c2;
+            --btn-hover: #945cd1;
+            --toggle-color: #000000;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1em;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: none;
+            border: 1px solid var(--toggle-color);
+            color: var(--toggle-color);
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+        .container {
+            padding: 16px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .card p,
+        .card li {
+            font-size: 0.98em;
+        }
+        .card ul {
+            padding-left: 18px;
+        }
+        .btn {
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin: 12px 0;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--btn-bg);
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: var(--btn-hover);
+        }
+        .toggle-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .toggle-area span {
+            font-size: 0.95em;
+        }
+        .compact-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .compact-table th,
+        .compact-table td {
+            padding: 10px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        .compact-table th {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Versiune Mobilă</h1>
+        <p>Sistem de Gestiune Apartamente - Ecran Mobil</p>
+        <button class="theme-toggle" onclick="toggleTheme()">�</button>
+    </header>
+
+    <div class="container">
+        <div class="toggle-area">
+            <span>Accesați versiunea desktop:</span>
+            <a href="desktop.html" class="btn">Desktop</a>
+        </div>
+
+        <div class="card">
+            <h2>Prezentare Generală</h2>
+            <p>Aplicație web pentru administratori care permite gestionarea portofoliilor de apartamente, urmărirea facturilor, chirii și mentenanță.</p>
+        </div>
+
+        <div class="card">
+            <h2>Module Esențiale</h2>
+            <ul>
+                <li>Chiriași</li>
+                <li>Apartamente</li>
+                <li>Facturi</li>
+                <li>Chirii</li>
+                <li>Întreținere</li>
+                <li>Documente</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Schema Bază Date</h2>
+            <table class="compact-table">
+                <tr><th>Tabel</th><th>Câmpuri</th></tr>
+                <tr><td>tenants</td><td>id, nume, email, telefon</td></tr>
+                <tr><td>apartments</td><td>id, adresa, suprafata</td></tr>
+                <tr><td>invoices</td><td>id, apartment_id, suma, status</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Flux Utilizator</h2>
+            <ol>
+                <li>Deschideți pagina mobilă</li>
+                <li>Navigați ușor între secțiuni</li>
+                <li>Consultați specificațiile rapid</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Documentație Specs</h2>
+            <p>Consultați fișierele Markdown de planificare:</p>
+            <a href="Specs/01_Prezentare_Generala.md" class="btn" target="_blank">Prezentare Generală</a>
+            <a href="Specs/02_Functionalitati_Moduli.md" class="btn" target="_blank">Funcționalități</a>
+            <a href="Specs/06_Mockup_UI.md" class="btn" target="_blank">Mockup UI</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const button = document.querySelector('.theme-toggle');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                button.textContent = '�';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                button.textContent = '🌑';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('theme');
+            const button = document.querySelector('.theme-toggle');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                button.textContent = '🌑';
+            } else {
+                button.textContent = '🌕';
+            }
+        });
+    </script>
+</body>
+</html>

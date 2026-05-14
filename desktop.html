@@ -1,0 +1,586 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versiune Desktop - Sistem Gestiune Apartamente</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --header-bg: #2c3e50;
+            --header-text: white;
+            --nav-bg: #ecf0f1;
+            --nav-link: #2c3e50;
+            --nav-hover: #bdc3c7;
+            --table-bg: #f8f9fa;
+            --table-header: #e9ecef;
+            --highlight-bg: #ecf0f1;
+            --mockup-bg: #ffffff;
+            --btn-bg: #3498db;
+            --btn-hover: #2980b9;
+            --border: #dee2e6;
+            --toggle-color: white;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1b0f2a;
+            --text-color: #f3ecff;
+            --header-bg: #2c1a45;
+            --header-text: #f3ecff;
+            --nav-bg: #381f54;
+            --nav-link: #f3ecff;
+            --nav-hover: #4a2b6e;
+            --table-bg: #2f1d52;
+            --table-header: #3c2769;
+            --highlight-bg: #321f5d;
+            --mockup-bg: #281a45;
+            --btn-bg: #7f58c2;
+            --btn-hover: #945cd1;
+            --border: #4c3271;
+            --toggle-color: #000000;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: normal;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid var(--toggle-color);
+            color: var(--toggle-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        nav {
+            background-color: var(--nav-bg);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--nav-link);
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: var(--nav-hover);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            display: none;
+            margin-bottom: 40px;
+        }
+        .section.active {
+            display: block;
+        }
+        h2 {
+            color: var(--nav-link);
+            border-bottom: 2px solid var(--btn-bg);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: var(--text-color);
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: var(--nav-link);
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--table-bg);
+            border: 1px solid var(--border);
+        }
+        table th, table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: var(--table-header);
+            font-weight: bold;
+        }
+        .highlight {
+            background-color: var(--highlight-bg);
+            padding: 20px;
+            border-left: 4px solid var(--btn-bg);
+            margin: 20px 0;
+        }
+        .mockup {
+            border: 1px solid var(--border);
+            padding: 20px;
+            background-color: var(--mockup-bg);
+            margin: 20px 0;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .btn {
+            background-color: var(--btn-bg);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: var(--btn-hover);
+        }
+        footer {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+            nav {
+                padding: 10px;
+                flex-direction: column;
+            }
+            nav a {
+                margin: 5px 0;
+                padding: 8px 12px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            table {
+                font-size: 0.9em;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+            .mockup {
+                padding: 15px;
+            }
+            .highlight {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            nav a {
+                font-size: 0.9em;
+                padding: 6px 10px;
+            }
+            .container {
+                padding: 10px;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Versiune Desktop</h1>
+        <p>Interfață optimizată pentru ecrane mari.</p>
+        <button class="theme-toggle" onclick="toggleTheme()">�</button>
+        <a class="btn" href="mobile.html" style="position:absolute; top:20px; right:130px;">Versiune Mobil</a>
+    </header>
+    <nav>
+        <a href="#" onclick="showSection('overview')">Prezentare Generală</a>
+        <a href="#" onclick="showSection('modules')">Module Funcționale</a>
+        <a href="#" onclick="showSection('database')">Schema Bază Date</a>
+        <a href="#" onclick="showSection('architecture')">Arhitectură Tehnică</a>
+        <a href="#" onclick="showSection('documentation')">Documentație</a>
+        <a href="#" onclick="showSection('flow')">Flux Utilizator</a>
+        <a href="#" onclick="showSection('mockup')">Mockup UI</a>
+    </nav>
+
+    <div class="container">
+        <div id="overview" class="section active">
+            <h2>1. Prezentare Generală Proiect</h2>
+            <div class="highlight">
+                <strong>Titlu Proiect:</strong> Sistem de Gestiune Integrată a Apartamentelor
+            </div>
+            <p>Aplicație web pentru administratorii de proprietăți care permite gestionarea completă a portofoliilor de apartamente, inclusiv urmărirea financiară (facturi și chirii), programarea și urmărirea întreținerii, stocarea documentelor juridice, și gestionarea informațiilor chiriașilor.</p>
+            <h3>Obiective Principale</h3>
+            <ul>
+                <li><strong>Centralizare datelor</strong> - Toate informațiile despre apartamente și chiriași într-un singur sistem</li>
+                <li><strong>Eficiență administrativă</strong> - Reducerea timp consumat în gestionarea manuală a dosarelor</li>
+                <li><strong>Transparență financiară</strong> - Urmărire ușoară a veniturilor și cheltuielilor</li>
+                <li><strong>Conformitate legală</strong> - Stocarea și organizarea documentelor importante</li>
+                <li><strong>Comunicare ușoară</strong> - Gestionare eficientă a informațiilor chiriașilor</li>
+            </ul>
+            <h3>Utilizatori Principali</h3>
+            <ul>
+                <li>Administratori de proprietăți</li>
+                <li>Proprietari de apartamente</li>
+                <li>Personal de management</li>
+            </ul>
+        </div>
+
+        <div id="modules" class="section">
+            <h2>2. Funcționalități și Module</h2>
+            <h3>Module Principale</h3>
+
+            <h4>1. MODUL CHIRIAȘI</h4>
+            <p><strong>Scop:</strong> Gestionare informații chiriași</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Adăugare / editare / ștergere chiriași</li>
+                <li>Vizualizare informații personale (nume, email, telefon)</li>
+                <li>Istoric contracte de închiriere</li>
+                <li>Data început și finalizare contract</li>
+                <li>Status actual (activ/inactiv)</li>
+                <li>Contacte de urgență</li>
+                <li>Referințe plăți anterioare</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Chiriaș, Nume, Email, Telefon, Adresa, Alte Informații Contact, Data Început Lease, Data Sfârșit Lease, Status Chiriaș</p>
+
+            <h4>2. MODUL APARTAMENTE</h4>
+            <p><strong>Scop:</strong> Administrare informații apartamente</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Listă completă de apartamente</li>
+                <li>Detalii apartament (adresă, număr cameră, suprafață)</li>
+                <li>Chiriaș actual alocat</li>
+                <li>Istoric locatari</li>
+                <li>Status ocupare (liber/ocupat)</li>
+                <li>Număr contact urgență</li>
+                <li>Note speciale despre proprietate</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Apartament, Adresă, Număr Apartament, Suprafață, Număr Camere, Etaj, Chiriaș Actual, Data Ocupare, Status</p>
+
+            <h4>3. MODUL FACTURI</h4>
+            <p><strong>Scop:</strong> Gestionare facturi utilități și servicii</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Creare facturi (apa, gaz, electricitate, întreținere)</li>
+                <li>Setare dată scadență</li>
+                <li>Urmărire status plăți</li>
+                <li>Generare rapoarte lunare</li>
+                <li>Notificări pentru plăți restante</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Factură, ID Apartament, Tip Factură, Sumă, Dată Scadență, Status Plată</p>
+
+            <h4>4. MODUL CHIRII</h4>
+            <p><strong>Scop:</strong> Urmărire plăți chirii</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Înregistrare plăți chirii lunare</li>
+                <li>Urmărire întârzieri</li>
+                <li>Calcul penalități</li>
+                <li>Rapoarte venituri</li>
+                <li>Notificări pentru plăți</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Chirie, ID Apartament, ID Chiriaș, Lună, Sumă Chirie, Status Plată, Dată Plată</p>
+
+            <h4>5. MODUL ÎNTREȚINERE</h4>
+            <p><strong>Scop:</strong> Programare și urmărire reparații</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Programare lucrări de întreținere</li>
+                <li>Urmărire status reparații</li>
+                <li>Alocare tehnicieni</li>
+                <li>Înregistrare costuri</li>
+                <li>Rapoarte întreținere</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Întreținere, ID Apartament, Descriere, Status, Prioritate, Dată Programare, Cost Estimat</p>
+
+            <h4>6. MODUL DOCUMENTE</h4>
+            <p><strong>Scop:</strong> Stocare documente juridice</p>
+            <p><strong>Funcționalități:</strong></p>
+            <ul>
+                <li>Încărcare documente (contracte, acte)</li>
+                <li>Organizare pe categorii</li>
+                <li>Căutare documente</li>
+                <li>Acces securizat</li>
+                <li>Backup automat</li>
+            </ul>
+            <p><strong>Date Principale:</strong> ID Document, ID Apartament, Tip Document, Nume Fișier, Cale Fișier, Dată Încărcare</p>
+        </div>
+
+        <div id="database" class="section">
+            <h2>3. Schema Bază Date</h2>
+            <h3>Tabele Principale</h3>
+            <table>
+                <tr><th>Tabel</th><th>Câmpuri Principale</th><th>Descriere</th></tr>
+                <tr><td>tenants</td><td>id, nume, email, telefon, adresa_personala, data_inceput_lease, data_sfarsit_lease, status</td><td>Informații chiriași</td></tr>
+                <tr><td>apartments</td><td>id, adresa, numar_apartament, suprafata, numar_camere, etaj, tenant_id, status</td><td>Detalii apartamente</td></tr>
+                <tr><td>invoices</td><td>id, apartment_id, tip_factura, suma, data_scadenta, status_plata</td><td>Facturi utilități</td></tr>
+                <tr><td>rents</td><td>id, apartment_id, tenant_id, luna, suma_chirie, status_plata, data_plata</td><td>Plăți chirii</td></tr>
+                <tr><td>maintenance</td><td>id, apartment_id, descriere, status, prioritate, data_programare, cost_estimat</td><td>Lucrări întreținere</td></tr>
+                <tr><td>documents</td><td>id, apartment_id, tip_document, nume_fisier, cale_fisier, data_incarcare</td><td>Documente stocate</td></tr>
+            </table>
+        </div>
+
+        <div id="architecture" class="section">
+            <h2>4. Arhitectură Tehnică</h2>
+            <h3>Structură Proiect</h3>
+            <pre>
+project/
+├── index.html (prezentare planificare)
+├── Specs/ (documentație detaliată)
+│   ├── 01_Prezentare_Generala.md
+│   ├── 02_Functionalitati_Moduli.md
+│   ├── 03_Schema_Baza_Date.md
+│   ├── 04_Arhitectura_Tehnica.md
+│   ├── 05_Flux_Utilizator.md
+│   └── 06_Mockup_UI.md
+├── README.md
+└── progres.md
+            </pre>
+            <h3>Tehnologii</h3>
+            <ul>
+                <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript</li>
+                <li><strong>Backend:</strong> PHP (eliminat conform cererii)</li>
+                <li><strong>Bază Date:</strong> MySQL (eliminat conform cererii)</li>
+                <li><strong>Server:</strong> Apache/XAMPP (opțional)</li>
+            </ul>
+        </div>
+
+        <div id="documentation" class="section">
+            <h2>Documentație Detaliată</h2>
+            <p>Accesează planificarea proiectului direct din fișierele Markdown din folderul <strong>Specs/</strong>.</p>
+            <ul>
+                <li><a href="Specs/01_Prezentare_Generala.md" target="_blank">01_Prezentare_Generala.md</a> - Descriere generală și obiective</li>
+                <li><a href="Specs/02_Functionalitati_Moduli.md" target="_blank">02_Functionalitati_Moduli.md</a> - Functionalități și module</li>
+                <li><a href="Specs/03_Schema_Baza_Date.md" target="_blank">03_Schema_Baza_Date.md</a> - Schema bazei de date</li>
+                <li><a href="Specs/04_Arhitectura_Tehnica.md" target="_blank">04_Arhitectura_Tehnica.md</a> - Arhitectură tehnică</li>
+                <li><a href="Specs/05_Flux_Utilizator.md" target="_blank">05_Flux_Utilizator.md</a> - Flux utilizator și user stories</li>
+                <li><a href="Specs/06_Mockup_UI.md" target="_blank">06_Mockup_UI.md</a> - Mockup UI complet</li>
+            </ul>
+        </div>
+
+        <div id="flow" class="section">
+            <h2>5. Flux Utilizator</h2>
+            <p>Sistemul este conceput pentru o utilizare intuitivă și eficientă.</p>
+            <h3>Flux Tipic de Utilizare</h3>
+            <ol>
+                <li><strong>Acces Sistem:</strong> Deschidere index.html în browser</li>
+                <li><strong>Revizuire Planificare:</strong> Navigare prin secțiuni pentru înțelegere specificații</li>
+                <li><strong>Consultare Detalii:</strong> Citire documentație completă în folderul Specs/</li>
+                <li><strong>Implementare:</strong> Dezvoltare bazată pe specificații</li>
+            </ol>
+            <h3>Beneficii pentru Utilizator</h3>
+            <ul>
+                <li>Interfață clară și organizată</li>
+                <li>Acces rapid la informații</li>
+                <li>Prezentare profesională</li>
+                <li>Documentație completă</li>
+            </ul>
+        </div>
+
+        <div id="mockup" class="section">
+            <h2>6. Mockup UI</h2>
+            <p>Interfața propusă pentru sistemul de gestiune.</p>
+
+            <div class="mockup">
+                <h4>Dashboard Principal</h4>
+                <p>Bun venit în sistemul de gestiune a apartamentelor!</p>
+                <p>Statistici rapide: [Număr apartamente], [Chiriași activi], [Facturi neplătite]</p>
+                <button class="btn">Gestionare Chiriași</button>
+                <button class="btn">Vizualizare Facturi</button>
+                <button class="btn">Programare Întreținere</button>
+            </div>
+
+            <div class="mockup">
+                <h4>Formular Adăugare Chiriaș</h4>
+                <div class="form-group">
+                    <label>Nume complet:</label>
+                    <input type="text" placeholder="Introduceți numele complet">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Telefon:</label>
+                    <input type="tel" placeholder="07xx xxx xxx">
+                </div>
+                <div class="form-group">
+                    <label>Adresă personală:</label>
+                    <input type="text" placeholder="Adresa completă">
+                </div>
+                <button class="btn">Salvează Chiriaș</button>
+            </div>
+
+            <div class="mockup">
+                <h4>Listă Facturi</h4>
+                <table>
+                    <tr><th>ID</th><th>Apartament</th><th>Tip</th><th>Sumă</th><th>Status</th><th>Acțiuni</th></tr>
+                    <tr><td>1</td><td>Ap. 101</td><td>Electricitate</td><td>150 RON</td><td>Plătit</td><td><button class="btn">Vezi Detalii</button></td></tr>
+                    <tr><td>2</td><td>Ap. 102</td><td>Apă</td><td>80 RON</td><td>Neplătit</td><td><button class="btn">Vezi Detalii</button></td></tr>
+                    <tr><td>3</td><td>Ap. 103</td><td>Gaz</td><td>200 RON</td><td>Plătit</td><td><button class="btn">Vezi Detalii</button></td></tr>
+                </table>
+            </div>
+
+            <div class="mockup">
+                <h4>Programare Întreținere</h4>
+                <div class="form-group">
+                    <label>Apartament:</label>
+                    <select>
+                        <option>Selectați apartament</option>
+                        <option>Ap. 101 - Strada Victoriei 10</option>
+                        <option>Ap. 102 - Strada Victoriei 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Descriere problemă:</label>
+                    <input type="text" placeholder="Descrieți problema">
+                </div>
+                <div class="form-group">
+                    <label>Prioritate:</label>
+                    <select>
+                        <option>Scăzută</option>
+                        <option>Medie</option>
+                        <option>Ridicat</option>
+                        <option>Urgentă</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Data programare:</label>
+                    <input type="date">
+                </div>
+                <button class="btn">Programează Reparație</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sistem de Gestiune Integrată a Apartamentelor. Documentație tehnică completă.</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                themeToggle.textContent = '�';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌑';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌑';
+            } else {
+                themeToggle.textContent = '🌕';
+            }
+        });
+    </script>
+</body>
+</html>
