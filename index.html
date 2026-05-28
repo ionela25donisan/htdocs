@@ -1,141 +1,804 @@
 ﻿<!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selecție Versiune - Sistem Gestiune Apartamente</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --header-bg: #2c3e50;
-            --header-text: white;
-            --btn-bg: #3498db;
-            --btn-hover: #2980b9;
-            --card-bg: #f8f9fa;
-            --border: #dee2e6;
-        }
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --header-bg: #0f0f0f;
-            --header-text: #e0e0e0;
-            --btn-bg: #5dade2;
-            --btn-hover: #3498db;
-            --card-bg: #2c2c2c;
-            --border: #555555;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Times New Roman', serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            text-align: center;
-            padding: 30px 20px;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.4em;
-        }
-        header p {
-            margin: 12px 0 0;
-            font-size: 1.1em;
-            color: rgba(255,255,255,0.85);
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        .card h2 {
-            margin-top: 0;
-            font-size: 1.8em;
-            color: var(--header-bg);
-        }
-        .card p {
-            margin: 16px 0;
-            font-size: 1em;
-        }
-        .button-group {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .button-group a {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: var(--btn-bg);
-            padding: 14px 24px;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .button-group a:hover {
-            background-color: var(--btn-hover);
-        }
-        footer {
-            text-align: center;
-            padding: 24px 20px;
-            color: #7f8c8d;
-        }
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-            .card {
-                padding: 22px;
-            }
-            .button-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .button-group a {
-                width: 100%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RentalHub — Gestiune Proprietăți</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/auth.css">
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <header>
-        <h1>Selectați versiunea proiectului</h1>
-        <p>Alegeți între o versiune optimizată pentru desktop și una pentru mobil.</p>
-    </header>
-    <div class="container">
-        <div class="card">
-            <h2>Versiune Desktop</h2>
-            <p>Interfața completă pentru ecrane mari, cu navigare clasică și prezentare detaliată.</p>
-            <div class="button-group">
-                <a href="desktop.html">Deschide Desktop</a>
-                <a href="mobile.html">Deschide Mobil</a>
-            </div>
+
+<!-- ══════════════════════════════════════════
+     ECRAN AUTENTIFICARE
+══════════════════════════════════════════ -->
+<div id="auth-screen">
+
+  <!-- Stânga: branding -->
+  <div class="auth-left">
+    <div class="auth-brand"><i data-lucide="building-2"></i> Rental<span>Hub</span></div>
+    <div class="auth-tagline">Platforma ta de gestiune și anunțuri imobiliare</div>
+
+    <div class="auth-features">
+      <div class="auth-feature">
+        <div class="auth-feature-icon"><i data-lucide="house"></i></div>
+        <div class="auth-feature-text">
+          <h4>Publică anunțuri</h4>
+          <p>Adaugă proprietăți de închiriere sau vânzare în câteva secunde.</p>
         </div>
-        <div class="card">
-            <h2>Versiune Mobilă</h2>
-            <p>Layout compact și ușor de folosit pe telefoane, conceput pentru o experiență clară pe ecrane mici.</p>
-            <div class="button-group">
-                <a href="mobile.html">Deschide Mobil</a>
-                <a href="desktop.html">Deschide Desktop</a>
-            </div>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon"><i data-lucide="search"></i></div>
+        <div class="auth-feature-text">
+          <h4>Explorează ofertele</h4>
+          <p>Navighează prin toate anunțurile disponibile cu filtre avansate.</p>
         </div>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon"><i data-lucide="chart-column"></i></div>
+        <div class="auth-feature-text">
+          <h4>Gestionează portofoliul</h4>
+          <p>Dashboard complet cu contracte, plăți și mentenanță.</p>
+        </div>
+      </div>
     </div>
-    <footer>
-        <p>&copy; 2024 Sistem de Gestiune Integrată a Apartamentelor</p>
-    </footer>
+
+    <div class="auth-stats">
+      <div>
+        <div class="auth-stat-num">4+</div>
+        <div class="auth-stat-lbl">Proprietăți demo</div>
+      </div>
+      <div>
+        <div class="auth-stat-num">100%</div>
+        <div class="auth-stat-lbl">Offline — date locale</div>
+      </div>
+      <div>
+        <div class="auth-stat-num">Free</div>
+        <div class="auth-stat-lbl">Gratuit complet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dreapta: formular -->
+  <div class="auth-right">
+    <div class="auth-form-header">
+      <div class="auth-form-title" id="auth-form-title">Bun venit!</div>
+      <div class="auth-form-subtitle" id="auth-form-subtitle">Autentifică-te pentru a accesa aplicația.</div>
+    </div>
+
+    <div id="auth-error" class="auth-error"></div>
+
+    <!-- Formular Login -->
+    <div id="auth-login-form" class="auth-form" style="display:flex;flex-direction:column;gap:16px;">
+      <div class="auth-field">
+        <label>Email *</label>
+        <input id="login-email" type="email" placeholder="numele@email.com"
+               onkeydown="authKeyHandler(event, handleLogin)" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label>Parolă *</label>
+        <div class="pw-wrapper">
+          <input id="login-password" type="password" placeholder="Parola ta"
+                 onkeydown="authKeyHandler(event, handleLogin)" autocomplete="current-password">
+          <button class="pw-toggle" onclick="togglePw('login-password', this)" type="button" aria-label="Arată parola"><i data-lucide="eye"></i></button>
+        </div>
+      </div>
+
+      <div class="auth-demo-hint">
+        <i data-lucide="lightbulb"></i> <span>Admin: <strong>admin@test.com</strong> / <strong>admin123</strong><br>Utilizator: <strong>user@test.com</strong> / <strong>user123</strong></span>
+      </div>
+
+      <button class="auth-btn" onclick="handleLogin()">Intră în cont →</button>
+
+      <div class="auth-switch">
+        Nu ai cont? <a onclick="switchToRegister()">Creează unul acum</a>
+      </div>
+    </div>
+
+    <!-- Formular Register -->
+    <div id="auth-register-form" class="auth-form" style="display:none;flex-direction:column;gap:16px;">
+      <div class="auth-field">
+        <label>Nume complet *</label>
+        <input id="reg-name" type="text" placeholder="Ion Popescu" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label>Email *</label>
+        <input id="reg-email" type="email" placeholder="numele@email.com" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label>Tip cont *</label>
+        <select id="reg-role">
+          <option value="user">Utilizator - caut locuinta</option>
+          <option value="admin">Admin / proprietar - gestionez anunturi</option>
+        </select>
+      </div>
+      <div class="auth-field">
+        <label>Parolă * <span style="font-weight:400;text-transform:none;font-size:0.78rem;">(min. 6 caractere)</span></label>
+        <div class="pw-wrapper">
+          <input id="reg-password" type="password" placeholder="Alege o parolă sigură"
+                 onkeydown="authKeyHandler(event, handleRegister)" autocomplete="new-password">
+          <button class="pw-toggle" onclick="togglePw('reg-password', this)" type="button" aria-label="Arată parola"><i data-lucide="eye"></i></button>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label>Confirmă parola *</label>
+        <div class="pw-wrapper">
+          <input id="reg-confirm" type="password" placeholder="Repetă parola"
+                 onkeydown="authKeyHandler(event, handleRegister)" autocomplete="new-password">
+          <button class="pw-toggle" onclick="togglePw('reg-confirm', this)" type="button" aria-label="Arată parola"><i data-lucide="eye"></i></button>
+        </div>
+      </div>
+
+      <button class="auth-btn" onclick="handleRegister()">Creează cont →</button>
+
+      <div class="auth-switch">
+        Ai deja cont? <a onclick="switchToLogin()">Autentifică-te</a>
+      </div>
+    </div>
+  </div><!-- /auth-right -->
+
+</div><!-- /auth-screen -->
+
+
+<!-- ══════════════════════════════════════════
+     APLICAȚIE PRINCIPALĂ
+══════════════════════════════════════════ -->
+<div id="app-screen" style="flex-direction:column;">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-logo"><i data-lucide="building-2"></i> Rental<span>Hub</span></div>
+    <div class="header-right">
+      <span class="header-badge" id="header-role">Utilizator</span>
+      <div class="user-avatar" id="header-initials">?</div>
+      <span class="header-username" id="header-username"></span>
+      <button class="btn-logout" onclick="logout()"><i data-lucide="log-out"></i> Deconectare</button>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav class="app-nav" id="mainNav">
+    <button class="nav-btn active" onclick="showSection('home')" data-section="home"><i data-lucide="search"></i> Home</button>
+    <button class="nav-btn admin-only" onclick="showSection('dashboard')" data-section="dashboard"><i data-lucide="chart-column"></i> Dashboard</button>
+    <button class="nav-btn admin-only" onclick="showSection('apartments')" data-section="apartments"><i data-lucide="house"></i> Apartamente <span class="nav-count" id="cnt-apartments">0</span></button>
+    <button class="nav-btn admin-only" onclick="showSection('tenants')" data-section="tenants"><i data-lucide="user"></i> Chiriași <span class="nav-count" id="cnt-tenants">0</span></button>
+    <button class="nav-btn admin-only" onclick="showSection('contracts')" data-section="contracts"><i data-lucide="file-text"></i> Contracte <span class="nav-count" id="cnt-contracts">0</span></button>
+    <button class="nav-btn admin-only" onclick="showSection('payments')" data-section="payments"><i data-lucide="credit-card"></i> Plăți <span class="nav-count" id="cnt-payments">0</span></button>
+    <button class="nav-btn" onclick="showSection('listings')" data-section="listings"><i data-lucide="tag"></i> Anunțuri <span class="nav-count" id="cnt-listings">0</span></button>
+    <button class="nav-btn" onclick="showSection('favorites')" data-section="favorites"><i data-lucide="heart"></i> Favorite <span class="nav-count" id="cnt-favorites">0</span></button>
+    <button class="nav-btn" onclick="showSection('messages')" data-section="messages"><i data-lucide="messages-square"></i> Mesaje <span class="nav-count" id="cnt-messages">0</span></button>
+    <button class="nav-btn admin-only" onclick="showSection('maintenance')" data-section="maintenance"><i data-lucide="wrench"></i> Mentenanță <span class="nav-count" id="cnt-maintenance">0</span></button>
+  </nav>
+
+  <div class="app-body">
+
+  <!-- ══ HOME PUBLIC ══ -->
+  <div id="section-home" class="section active home-section">
+    <div class="home-hero">
+      <div>
+        <div class="home-kicker">Cauta rapid, compara usor, contacteaza direct</div>
+        <h1>Gaseste locuinta potrivita pentru tine</h1>
+        <p>Alege criteriile importante si vezi variante de inchiriat sau de vanzare, cu datele proprietarului la un click distanta.</p>
+      </div>
+      <div class="home-hero-stats">
+        <div><strong id="home-stat-active">0</strong><span>Anunturi active</span></div>
+        <div><strong id="home-stat-rent">0</strong><span>De inchiriat</span></div>
+        <div><strong id="home-stat-sale">0</strong><span>De vanzare</span></div>
+      </div>
+    </div>
+
+    <div class="home-search-panel">
+      <input id="homeKeyword" type="text" placeholder="Cauta dupa oras, cartier, strada..." oninput="renderHomeListings()">
+      <select id="homeType" onchange="renderHomeListings()">
+        <option value="">Toate anunturile</option>
+        <option value="Închiriere">De inchiriat</option>
+        <option value="Vânzare">De vanzare</option>
+      </select>
+      <select id="homeRooms" onchange="renderHomeListings()">
+        <option value="">Camere</option>
+        <option value="1">1 camera</option>
+        <option value="2">2 camere</option>
+        <option value="3">3 camere</option>
+        <option value="4+">4+ camere</option>
+      </select>
+      <input id="homeMinPrice" type="number" min="0" placeholder="Pret minim" oninput="renderHomeListings()">
+      <input id="homeMaxPrice" type="number" min="0" placeholder="Pret maxim" oninput="renderHomeListings()">
+      <select id="homeSort" onchange="renderHomeListings()">
+        <option value="newest">Cele mai noi</option>
+        <option value="priceAsc">Pret crescator</option>
+        <option value="priceDesc">Pret descrescator</option>
+        <option value="areaDesc">Suprafata mare</option>
+      </select>
+    </div>
+
+    <div class="home-results-head">
+      <div>
+        <h2>Locuinte disponibile</h2>
+        <span id="homeResultsCount">0 rezultate</span>
+      </div>
+      <button class="btn btn-secondary" onclick="resetHomeFilters()">Reseteaza filtre</button>
+    </div>
+
+    <div class="home-listings-grid" id="homeListingsGrid"></div>
+  </div>
+
+  <!-- ══ DASHBOARD ══ -->
+  <div id="section-dashboard" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Dashboard</div>
+        <div class="section-subtitle">Vizualizare generală a portofoliului</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="showSection('apartments');openApartmentForm()">+ Apartament nou</button>
+        <button class="btn btn-secondary" onclick="showSection('listings');showListingsTab('mine');openListingForm()">+ Anunț nou</button>
+      </div>
+    </div>
+
+    <div class="stats-row" id="dash-stats"></div>
+
+    <div class="dash-cols">
+      <div>
+        <h3 style="font-family:var(--font-head);font-size:1.1rem;margin-bottom:14px;color:var(--purple);">Apartamente recente</h3>
+        <div id="dash-apartments"></div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-head);font-size:1.1rem;margin-bottom:14px;color:var(--purple);">Plăți recente</h3>
+        <div id="dash-payments"></div>
+        <div class="divider"></div>
+        <h3 style="font-family:var(--font-head);font-size:1.1rem;margin-bottom:14px;color:var(--purple);">Contracte — alerte</h3>
+        <div id="dash-contracts-alert"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ APARTAMENTE ══ -->
+  <div id="section-apartments" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Apartamente</div>
+        <div class="section-subtitle">Gestionează portofoliul de proprietăți</div>
+      </div>
+      <button class="btn btn-primary" onclick="openApartmentForm()">+ Apartament nou</button>
+    </div>
+    <div class="table-panel">
+      <div class="table-toolbar">
+        <input type="text" placeholder="Caută după adresă..." id="apSearch" oninput="renderApartments()">
+        <select id="apStatusFilter" onchange="renderApartments()">
+          <option value="">Toate statusurile</option>
+          <option>Liber</option><option>Ocupat</option><option>De vânzare</option>
+          <option>Rezervat</option><option>În mentenanță</option><option>Vândut</option><option>Închiriat</option>
+        </select>
+        <select id="apTypeFilter" onchange="renderApartments()">
+          <option value="">Toate tipurile</option>
+          <option>Apartament</option><option>Vilă</option><option>Studio</option>
+          <option>Garsonieră</option><option>Casă</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Adresă</th><th>Tip</th><th>Camere</th><th>mp</th>
+            <th>Status</th><th>Preț/Chirie</th><th>Etaj</th><th>Acțiuni</th>
+          </tr></thead>
+          <tbody id="apartmentsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CHIRIAȘI ══ -->
+  <div id="section-tenants" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Chiriași</div>
+        <div class="section-subtitle">Gestionează chiriașii și proprietarii cumpărători</div>
+      </div>
+      <button class="btn btn-primary" onclick="openTenantForm()">+ Chiriaș nou</button>
+    </div>
+    <div class="table-panel">
+      <div class="table-toolbar">
+        <input type="text" placeholder="Caută după nume, email..." id="tenSearch" oninput="renderTenants()">
+        <select id="tenStatusFilter" onchange="renderTenants()">
+          <option value="">Toți</option>
+          <option>Activ</option><option>Inactiv</option><option>Prospect</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Nume</th><th>Email</th><th>Telefon</th><th>Apartament</th>
+            <th>CNP</th><th>Status</th><th>Acțiuni</th>
+          </tr></thead>
+          <tbody id="tenantsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTRACTE ══ -->
+  <div id="section-contracts" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Contracte</div>
+        <div class="section-subtitle">Contracte de închiriere, vânzare-cumpărare</div>
+      </div>
+      <button class="btn btn-primary" onclick="openContractForm()">+ Contract nou</button>
+    </div>
+    <div id="contract-alerts"></div>
+    <div class="table-panel">
+      <div class="table-toolbar">
+        <input type="text" placeholder="Caută..." id="conSearch" oninput="renderContracts()">
+        <select id="conTypeFilter" onchange="renderContracts()">
+          <option value="">Toate tipurile</option>
+          <option>Închiriere</option><option>Vânzare-Cumpărare</option>
+          <option>Subînchiriere</option><option>Opțiune cumpărare</option>
+        </select>
+        <select id="conStatusFilter" onchange="renderContracts()">
+          <option value="">Toate statusurile</option>
+          <option>Activ</option><option>Expirat</option><option>Reziliat</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Apartament</th><th>Chiriaș / Cumpărător</th><th>Tip</th>
+            <th>Data început</th><th>Data expirare</th><th>Valoare</th>
+            <th>Status</th><th>Acțiuni</th>
+          </tr></thead>
+          <tbody id="contractsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PLĂȚI ══ -->
+  <div id="section-payments" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Plăți</div>
+        <div class="section-subtitle">Urmărire chirii, utilități, tranzacții vânzare</div>
+      </div>
+      <button class="btn btn-primary" onclick="openPaymentForm()">+ Plată nouă</button>
+    </div>
+    <div class="finance-row" id="finance-summary"></div>
+    <div class="table-panel">
+      <div class="table-toolbar">
+        <input type="text" placeholder="Caută..." id="paySearch" oninput="renderPayments()">
+        <select id="payTypeFilter" onchange="renderPayments()">
+          <option value="">Toate tipurile</option>
+          <option>Chirie</option><option>Utilități</option><option>Tranzacție vânzare</option>
+          <option>Garanție</option><option>Comision</option><option>Altele</option>
+        </select>
+        <select id="payMonthFilter" onchange="renderPayments()">
+          <option value="">Toate lunile</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Apartament</th><th>Tip</th><th>Sumă</th><th>Data</th>
+            <th>Metodă</th><th>Note</th><th>Acțiuni</th>
+          </tr></thead>
+          <tbody id="paymentsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ANUNȚURI ══ -->
+  <div id="section-listings" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Anunțuri</div>
+        <div class="section-subtitle">Explorează oferte sau publică proprietățile tale</div>
+      </div>
+      <button class="btn btn-primary" onclick="showListingsTab('mine');openListingForm()">+ Anunț nou</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="listings-tabs">
+      <button class="listings-tab-btn" id="tab-btn-browse" onclick="showListingsTab('browse')">
+        <i data-lucide="search"></i> Explorare anunțuri
+      </button>
+      <button class="listings-tab-btn" id="tab-btn-mine" onclick="showListingsTab('mine')">
+        <i data-lucide="user"></i> Anunțurile mele
+      </button>
+    </div>
+
+    <!-- Tab: Explorare -->
+    <div class="listings-tab-panel" id="tab-browse">
+      <div class="filter-bar">
+        <select id="browseTypeFilter" onchange="renderBrowseListings()">
+          <option value="">Toate tipurile</option>
+          <option value="Închiriere">De închiriat</option>
+          <option value="Vânzare">De vânzare</option>
+          <option value="Cumpărare">Cerere cumpărare</option>
+        </select>
+        <input type="text" id="browseSearch" placeholder="Caută după adresă..." oninput="renderBrowseListings()" style="flex:2;">
+        <select id="browseRoomsFilter" onchange="renderBrowseListings()">
+          <option value="">Toate camerele</option>
+          <option value="1">1 cameră</option>
+          <option value="2">2 camere</option>
+          <option value="3">3 camere</option>
+          <option value="4+">4+ camere</option>
+        </select>
+      </div>
+      <div class="cards-grid" id="browseGrid"></div>
+    </div>
+
+    <!-- Tab: Anunțurile mele -->
+    <div class="listings-tab-panel" id="tab-mine">
+      <div class="filter-bar">
+        <select id="myTypeFilter" onchange="renderMyListings()">
+          <option value="">Toate tipurile</option>
+          <option value="Închiriere">Închiriere</option>
+          <option value="Vânzare">Vânzare</option>
+          <option value="Cumpărare">Cumpărare</option>
+        </select>
+        <input type="text" id="mySearch" placeholder="Caută..." oninput="renderMyListings()" style="flex:2;">
+      </div>
+      <div class="cards-grid" id="myListingsGrid"></div>
+    </div>
+  </div>
+
+  <!-- ══ FAVORITE ══ -->
+  <div id="section-favorites" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Favorite</div>
+        <div class="section-subtitle">Anunturile salvate pentru comparat mai tarziu</div>
+      </div>
+      <button class="btn btn-secondary" onclick="showSection('home')"><i data-lucide="search"></i> Cauta anunturi</button>
+    </div>
+    <div class="cards-grid" id="favoritesGrid"></div>
+  </div>
+
+  <!-- ══ MESAJE ══ -->
+  <div id="section-messages" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Mesaje</div>
+        <div class="section-subtitle">DM-urile trimise proprietarilor sunt pastrate aici</div>
+      </div>
+      <button class="btn btn-secondary" onclick="renderMessages()"><i data-lucide="refresh-cw"></i> Reincarca</button>
+    </div>
+
+    <div class="messages-layout">
+      <aside class="messages-sidebar" id="messagesSidebar"></aside>
+      <div class="messages-thread" id="messagesThread"></div>
+    </div>
+  </div>
+
+  <!-- ══ MENTENANȚĂ ══ -->
+  <div id="section-maintenance" class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Mentenanță</div>
+        <div class="section-subtitle">Urmărire intervenții și reparații</div>
+      </div>
+      <button class="btn btn-primary" onclick="openMaintenanceForm()">+ Intervenție nouă</button>
+    </div>
+    <div class="table-panel">
+      <div class="table-toolbar">
+        <input type="text" placeholder="Caută..." id="maintSearch" oninput="renderMaintenance()">
+        <select id="maintStatusFilter" onchange="renderMaintenance()">
+          <option value="">Toate statusurile</option>
+          <option>Programat</option><option>În desfășurare</option>
+          <option>Finalizat</option><option>Anulat</option>
+        </select>
+        <select id="maintPriorityFilter" onchange="renderMaintenance()">
+          <option value="">Toate prioritățile</option>
+          <option>Urgentă</option><option>Ridicată</option>
+          <option>Medie</option><option>Scăzută</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Apartament</th><th>Descriere</th><th>Data</th>
+            <th>Prioritate</th><th>Status</th><th>Cost (RON)</th><th>Acțiuni</th>
+          </tr></thead>
+          <tbody id="maintenanceBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /app-body -->
+
+
+  <!-- ══════════════════ MODALS ══════════════════ -->
+
+  <!-- Modal Apartament -->
+  <div class="modal-overlay" id="modal-apartment">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-apartment-title">Apartament nou</h2>
+        <button class="modal-close" onclick="closeModal('apartment')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="ap-id">
+          <div class="form-group full"><label>Adresă completă *</label>
+            <input id="ap-address" type="text" placeholder="Str. Victoriei 10, Ap. 3, Cluj-Napoca">
+          </div>
+          <div class="form-group"><label>Tip proprietate</label>
+            <select id="ap-type"><option>Apartament</option><option>Studio</option><option>Garsonieră</option><option>Vilă</option><option>Casă</option></select>
+          </div>
+          <div class="form-group"><label>Nr. camere</label><input id="ap-rooms" type="number" min="1" max="20" placeholder="2"></div>
+          <div class="form-group"><label>Suprafață (mp)</label><input id="ap-area" type="number" min="1" placeholder="65"></div>
+          <div class="form-group"><label>Etaj</label><input id="ap-floor" type="text" placeholder="3 / P+4"></div>
+          <div class="form-group"><label>An construcție</label><input id="ap-year" type="number" placeholder="2005" min="1900" max="2030"></div>
+          <div class="form-group"><label>Status</label>
+            <select id="ap-status"><option>Liber</option><option>Ocupat</option><option>De vânzare</option><option>Rezervat</option><option>În mentenanță</option><option>Vândut</option><option>Închiriat</option></select>
+          </div>
+          <div class="form-group"><label>Chirie lunară (RON)</label><input id="ap-rent" type="number" min="0" placeholder="1200"></div>
+          <div class="form-group"><label>Preț vânzare (RON)</label><input id="ap-price" type="number" min="0" placeholder="85000"></div>
+          <div class="form-group"><label>Dotări / Facilități</label><input id="ap-amenities" type="text" placeholder="AC, parcare, balcon..."></div>
+          <div class="form-group full"><label>Observații</label><textarea id="ap-notes" placeholder="Note suplimentare..."></textarea></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveApartment()"><i data-lucide="save"></i> Salvează</button>
+          <button class="btn btn-secondary" onclick="closeModal('apartment')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Chiriaș -->
+  <div class="modal-overlay" id="modal-tenant">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-tenant-title">Chiriaș nou</h2>
+        <button class="modal-close" onclick="closeModal('tenant')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="ten-id">
+          <div class="form-group"><label>Prenume *</label><input id="ten-first" type="text" placeholder="Andrei"></div>
+          <div class="form-group"><label>Nume *</label><input id="ten-last" type="text" placeholder="Popescu"></div>
+          <div class="form-group"><label>Email *</label><input id="ten-email" type="email" placeholder="andrei@email.com"></div>
+          <div class="form-group"><label>Telefon</label><input id="ten-phone" type="tel" placeholder="0712345678"></div>
+          <div class="form-group"><label>CNP</label><input id="ten-cnp" type="text" placeholder="1234567890123" maxlength="13"></div>
+          <div class="form-group"><label>Apartament asociat</label>
+            <select id="ten-apartment"><option value="">— Niciun apartament —</option></select>
+          </div>
+          <div class="form-group"><label>Status</label>
+            <select id="ten-status"><option>Activ</option><option>Inactiv</option><option>Prospect</option></select>
+          </div>
+          <div class="form-group full"><label>Note</label><textarea id="ten-notes" placeholder="Informații suplimentare..."></textarea></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveTenant()"><i data-lucide="save"></i> Salvează</button>
+          <button class="btn btn-secondary" onclick="closeModal('tenant')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Contract -->
+  <div class="modal-overlay" id="modal-contract">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-contract-title">Contract nou</h2>
+        <button class="modal-close" onclick="closeModal('contract')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="con-id">
+          <div class="form-group"><label>Apartament *</label>
+            <select id="con-apartment"><option value="">— Selectează —</option></select>
+          </div>
+          <div class="form-group"><label>Chiriaș / Cumpărător</label>
+            <select id="con-tenant"><option value="">— Selectează —</option></select>
+          </div>
+          <div class="form-group"><label>Tip contract *</label>
+            <select id="con-type"><option>Închiriere</option><option>Vânzare-Cumpărare</option><option>Subînchiriere</option><option>Opțiune cumpărare</option></select>
+          </div>
+          <div class="form-group"><label>Nr. contract</label><input id="con-number" type="text" placeholder="CTR-2024-001"></div>
+          <div class="form-group"><label>Data început *</label><input id="con-start" type="date"></div>
+          <div class="form-group"><label>Data expirare</label><input id="con-end" type="date"></div>
+          <div class="form-group"><label>Valoare contract (RON)</label><input id="con-value" type="number" min="0" placeholder="1200"></div>
+          <div class="form-group"><label>Garanție (RON)</label><input id="con-deposit" type="number" min="0" placeholder="2400"></div>
+          <div class="form-group"><label>Status</label>
+            <select id="con-status"><option>Activ</option><option>Expirat</option><option>Reziliat</option></select>
+          </div>
+          <div class="form-group full"><label>Clauze / Note</label><textarea id="con-notes" placeholder="Clauze speciale..."></textarea></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveContract()"><i data-lucide="save"></i> Salvează</button>
+          <button class="btn btn-secondary" onclick="closeModal('contract')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Plată -->
+  <div class="modal-overlay" id="modal-payment">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-payment-title">Plată nouă</h2>
+        <button class="modal-close" onclick="closeModal('payment')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="pay-id">
+          <div class="form-group"><label>Apartament *</label>
+            <select id="pay-apartment"><option value="">— Selectează —</option></select>
+          </div>
+          <div class="form-group"><label>Tip plată *</label>
+            <select id="pay-type"><option>Chirie</option><option>Utilități</option><option>Tranzacție vânzare</option><option>Garanție</option><option>Comision</option><option>Altele</option></select>
+          </div>
+          <div class="form-group"><label>Sumă (RON) *</label><input id="pay-amount" type="number" min="0" step="0.01" placeholder="1200"></div>
+          <div class="form-group"><label>Data *</label><input id="pay-date" type="date"></div>
+          <div class="form-group"><label>Metodă plată</label>
+            <select id="pay-method"><option>Transfer bancar</option><option>Numerar</option><option>Card</option><option>Cec</option><option>Altele</option></select>
+          </div>
+          <div class="form-group full"><label>Note</label><input id="pay-notes" type="text" placeholder="Chitanță nr., referință..."></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="savePayment()"><i data-lucide="save"></i> Salvează</button>
+          <button class="btn btn-secondary" onclick="closeModal('payment')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Anunț -->
+  <div class="modal-overlay" id="modal-listing">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-listing-title">Anunț nou</h2>
+        <button class="modal-close" onclick="closeModal('listing')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="lst-id">
+          <div class="form-group full"><label>Adresă / Titlu *</label>
+            <input id="lst-address" type="text" placeholder="Str. Unirii 5, Ap. 12 — Cluj">
+          </div>
+          <div class="form-group"><label>Tip anunț *</label>
+            <select id="lst-type"><option>Închiriere</option><option>Vânzare</option><option>Cumpărare</option></select>
+          </div>
+          <div class="form-group"><label>Nr. camere</label><input id="lst-rooms" type="number" min="1" placeholder="2"></div>
+          <div class="form-group"><label>Suprafață (mp)</label><input id="lst-area" type="number" min="1" placeholder="60"></div>
+          <div class="form-group"><label>Etaj</label><input id="lst-floor" type="text" placeholder="2"></div>
+          <div class="form-group"><label>Preț (RON) *</label><input id="lst-price" type="number" min="0" placeholder="95000"></div>
+          <div class="form-group full"><label>URL poza principala</label>
+            <input id="lst-image" type="url" placeholder="https://images.unsplash.com/...">
+          </div>
+          <div class="form-group full"><label>URL poze galerie (separate prin virgula)</label>
+            <textarea id="lst-images" placeholder="https://..., https://..., https://..."></textarea>
+          </div>
+          <div class="form-group"><label>Preț negociabil?</label>
+            <select id="lst-negotiable"><option value="Da">Da</option><option value="Nu">Nu</option></select>
+          </div>
+          <div class="form-group"><label>Status anunț</label>
+            <select id="lst-status"><option>Activ</option><option>Rezervat</option><option>Vândut</option><option>Închiriat</option><option>Retras</option></select>
+          </div>
+          <div class="form-group full"><label>Descriere</label>
+            <textarea id="lst-desc" placeholder="Descrieți proprietatea..."></textarea>
+          </div>
+          <div class="form-group full"><label>Dotări (separate prin virgulă)</label>
+            <input id="lst-amenities" type="text" placeholder="AC, parcare, balcon, mobilat...">
+          </div>
+          <div class="form-group"><label>Telefon proprietar</label>
+            <input id="lst-phone" type="tel" placeholder="0712345678">
+          </div>
+          <div class="form-group"><label>Email proprietar</label>
+            <input id="lst-email" type="email" placeholder="proprietar@email.com">
+          </div>
+          <div class="form-group full"><label>Mesaj rapid pentru contact</label>
+            <input id="lst-contact-note" type="text" placeholder="Ex: Disponibil pentru vizionari dupa ora 18:00">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveListing()"><i data-lucide="save"></i> Publică anunț</button>
+          <button class="btn btn-secondary" onclick="closeModal('listing')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Mentenanță -->
+  <div class="modal-overlay" id="modal-maintenance">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-maintenance-title">Intervenție nouă</h2>
+        <button class="modal-close" onclick="closeModal('maintenance')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <input type="hidden" id="mnt-id">
+          <div class="form-group"><label>Apartament *</label>
+            <select id="mnt-apartment"><option value="">— Selectează —</option></select>
+          </div>
+          <div class="form-group"><label>Data programare *</label><input id="mnt-date" type="date"></div>
+          <div class="form-group full"><label>Descriere *</label>
+            <input id="mnt-desc" type="text" placeholder="Descrieți problema sau intervenția">
+          </div>
+          <div class="form-group"><label>Prioritate</label>
+            <select id="mnt-priority"><option>Scăzută</option><option>Medie</option><option>Ridicată</option><option>Urgentă</option></select>
+          </div>
+          <div class="form-group"><label>Status</label>
+            <select id="mnt-status"><option>Programat</option><option>În desfășurare</option><option>Finalizat</option><option>Anulat</option></select>
+          </div>
+          <div class="form-group"><label>Cost estimat (RON)</label>
+            <input id="mnt-cost" type="number" min="0" step="0.01" placeholder="0">
+          </div>
+          <div class="form-group full"><label>Furnizor / Executant</label>
+            <input id="mnt-vendor" type="text" placeholder="Firma sau persoana responsabilă">
+          </div>
+          <div class="form-group full"><label>Note</label>
+            <textarea id="mnt-notes" placeholder="Detalii suplimentare..."></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveMaintenance()"><i data-lucide="save"></i> Salvează</button>
+          <button class="btn btn-secondary" onclick="closeModal('maintenance')">Anulează</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Contact Proprietar -->
+  <div class="modal-overlay" id="modal-contact">
+    <div class="modal contact-modal">
+      <div class="modal-header">
+        <h2 id="modal-contact-title">Contact proprietar</h2>
+        <button class="modal-close" onclick="closeModal('contact')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body" id="contactBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal Detaliu Anunt -->
+  <div class="modal-overlay" id="modal-listing-detail">
+    <div class="modal listing-detail-modal">
+      <div class="modal-header">
+        <h2 id="modal-listing-detail-title">Detalii anunt</h2>
+        <button class="modal-close" onclick="closeModal('listing-detail')" aria-label="Închide"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body" id="listingDetailBody"></div>
+    </div>
+  </div>
+
+</div><!-- /app-screen -->
+
+<div id="toast"></div>
+
+<!-- ══ SCRIPTS — ordinea contează ══ -->
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/apartaments.js"></script>
+<script src="js/tenants.js"></script>
+<script src="js/contracts.js"></script>
+<script src="js/payments.js"></script>
+<script src="js/listings.js"></script>
+<script src="js/home.js"></script>
+<script src="js/messages.js"></script>
+<script src="js/maintenance.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Seed cont demo (rulat o singură dată) -->
+<script>
+  (function seedDemoAccount() {
+    const users = JSON.parse(localStorage.getItem('rh_users') || '[]');
+    const ensure = user => {
+      const existing = users.find(u => u.email === user.email);
+      if (existing) Object.assign(existing, { role: user.role, phone: user.phone });
+      else users.push(user);
+    };
+    ensure({ id: 'demo', name: 'Admin Demo', email: 'demo@test.com', password: 'demo123', role: 'admin', phone: '0700000000', createdAt: '2024-01-01T00:00:00.000Z' });
+    ensure({ id: 'admin', name: 'Admin Proprietar', email: 'admin@test.com', password: 'admin123', role: 'admin', phone: '0711111111', createdAt: '2024-01-01T00:00:00.000Z' });
+    ensure({ id: 'user', name: 'Utilizator Demo', email: 'user@test.com', password: 'user123', role: 'user', phone: '0722222222', createdAt: '2024-01-01T00:00:00.000Z' });
+    localStorage.setItem('rh_users', JSON.stringify(users));
+  })();
+</script>
+
 </body>
 </html>

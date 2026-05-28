@@ -75,3 +75,39 @@
 
 ### Următorul pas:
 Implementarea paginării și sortării pentru tabele.
+
+## Data: 14 Mai 2026
+
+### Activitate 1: Implementare modul gestionare apartamente
+- ✅ Adăugat modul de gestionare apartamente în `desktop.html`.
+- ✅ Funcționalități demonstrative: listare, căutare, filtru după status, adăugare, editare și ștergere.
+- ✅ Datele sunt persistate local în `localStorage` pentru prototip.
+- ✅ Secțiunea a fost integrată în navigația desktop și poate fi testată direct.
+
+### Activitate 2: Implementare modul gestionare chiriași
+- ✅ Adăugat modul de gestionare chiriași în `desktop.html`.
+- ✅ Funcționalități demonstrative: listare, căutare, filtru după status și apartament, adăugare, editare și ștergere.
+- ✅ Se pot asocia chiriașii cu apartamente disponibile printr-un select din formular.
+- ✅ Datele chiriașilor sunt persistate local în `localStorage`.
+
+### Activitate 3: Implementare modul contracte și notificări expirare
+- ✅ Adăugat modul de gestionare contracte în `desktop.html`.
+- ✅ Implementat căutare contracte, filtre pe apartament și status expirare.
+- ✅ Afișare notificări pentru contracte expirate și contracte care expiră în următoarele 15 zile.
+- ✅ Contractele sunt persistate local în `localStorage`.
+
+### Activitate 4: Implementare modul plăți
+- ✅ Adăugat modul de gestionare plăți în `desktop.html`.
+- ✅ Implementat căutare plăți, filtrare după tip și apartament, adăugare, editare și ștergere.
+- ✅ Plățile sunt persistate local în `localStorage`.
+
+### Activitate 5: Implementare modul mentenanță și calendar
+- ✅ Adăugat modul de mentenanță în `desktop.html`.
+- ✅ Implementat căutare intervenții, filtre după apartament și status, adăugare, editare și ștergere.
+- ✅ Adăugat calendar lunar pentru mentenanță cu afișare intervenții programate.
+- ✅ Datele de mentenanță sunt persistate local în `localStorage`.
+
+### Următorul pas:
+- Testare end-to-end pentru sectiunea Mentenanță și verificare interacțiuni cu celelalte module.
+
+> Observație: toate informațiile de progres au fost consolidate într-un singur fișier `progres.md`. Fișierul `Specs/Progress.md` va fi eliminat pentru a păstra o evidență lineară și unică.

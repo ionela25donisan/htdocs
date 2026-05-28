@@ -7,14 +7,16 @@
     <style>
         :root {
             --bg-color: #ffffff;
-            --text-color: #333333;
-            --header-bg: #2c3e50;
-            --header-text: white;
-            --card-bg: #f8f9fa;
-            --border: #dee2e6;
-            --btn-bg: #3498db;
-            --btn-hover: #2980b9;
-            --toggle-color: white;
+            --text-color: #222222;
+            --header-bg: #ffffff;
+            --header-text: #3A05E;
+            --card-bg: #ffffff;
+            --border: #ded6ff;
+            --btn-bg: #3A05E;
+            --btn-hover: #2a0472;
+            --toggle-color: #3A05E;
+            --accent: #3A05E;
+            --muted: #5d4f8c;
         }
         [data-theme="dark"] {
             --bg-color: #1b0f2a;
@@ -62,6 +64,39 @@
             cursor: pointer;
             font-size: 1.1em;
         }
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background-color: rgba(58,5,230,0.08);
+            border: 1px solid rgba(58,5,230,0.15);
+            color: var(--accent);
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        .hero-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 16px 40px rgba(58,5,230,0.08);
+        }
+        .hero-section h1 {
+            margin: 0 0 12px;
+            color: var(--accent);
+            font-size: 1.8em;
+        }
+        .hero-section p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
         .container {
             padding: 16px;
         }
@@ -99,6 +134,23 @@
         .btn:hover {
             background-color: var(--btn-hover);
         }
+        .prompt-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .prompt-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .prompt-actions .btn {
+            flex: 1 1 140px;
+        }
         .toggle-area {
             display: flex;
             justify-content: space-between;
@@ -127,9 +179,12 @@
 </head>
 <body>
     <header>
-        <h1>Versiune Mobilă</h1>
-        <p>Sistem de Gestiune Apartamente - Ecran Mobil</p>
-        <button class="theme-toggle" onclick="toggleTheme()">�</button>
+        <div class="hero-label">PROPERTY MANAGEMENT SOFTWARE</div>
+        <div class="hero-section">
+            <h1>Versiune Mobilă</h1>
+            <p>Design mobil-first pentru gestionarea chiriașilor, plăților și mentenanței, cu accent pe alb și mov închis.</p>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌕</button>
     </header>
 
     <div class="container">
@@ -138,12 +193,31 @@
             <a href="desktop.html" class="btn">Desktop</a>
         </div>
 
-        <div class="card">
+        <div class="prompt-card">
+            <h2>Prompt interactiv</h2>
+            <p id="mobilePromptText">Ce vrei să vezi azi? Alege o opțiune ca să îți arăt direct secțiunea potrivită.</p>
+            <div class="prompt-actions">
+                <button class="btn" onclick="updateMobilePrompt('modules')">Vezi modulele</button>
+                <button class="btn" onclick="updateMobilePrompt('schema')">Schema BD</button>
+                <button class="btn" onclick="updateMobilePrompt('flow')">Flux utilizator</button>
+            </div>
+        </div>
+        <div class="card" id="mobileModernCard">
+            <h2>Funcționalități moderne</h2>
+            <ul>
+                <li>Portal chiriași și chat interactiv</li>
+                <li>Plăți online și notificări automate</li>
+                <li>Contracte digitale și documente securizate</li>
+                <li>Mentenanță predictivă și cereri de reparații</li>
+                <li>Dashboard financiar în timp real</li>
+            </ul>
+        </div>
+        <div class="card" id="mobileOverviewCard">
             <h2>Prezentare Generală</h2>
             <p>Aplicație web pentru administratori care permite gestionarea portofoliilor de apartamente, urmărirea facturilor, chirii și mentenanță.</p>
         </div>
 
-        <div class="card">
+        <div class="card" id="mobileModulesCard">
             <h2>Module Esențiale</h2>
             <ul>
                 <li>Chiriași</li>
@@ -155,7 +229,7 @@
             </ul>
         </div>
 
-        <div class="card">
+        <div class="card" id="mobileSchemaCard">
             <h2>Schema Bază Date</h2>
             <table class="compact-table">
                 <tr><th>Tabel</th><th>Câmpuri</th></tr>
@@ -165,7 +239,7 @@
             </table>
         </div>
 
-        <div class="card">
+        <div class="card" id="mobileFlowCard">
             <h2>Flux Utilizator</h2>
             <ol>
                 <li>Deschideți pagina mobilă</li>
@@ -189,7 +263,7 @@
             const button = document.querySelector('.theme-toggle');
             if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');
-                button.textContent = '�';
+                button.textContent = '🌕';
                 localStorage.setItem('theme', 'light');
             } else {
                 html.setAttribute('data-theme', 'dark');
@@ -197,6 +271,22 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        function updateMobilePrompt(action) {
+            const text = document.getElementById('mobilePromptText');
+            const section = document.getElementById(`mobile${action.charAt(0).toUpperCase() + action.slice(1)}Card`);
+            if (action === 'modules') {
+                text.textContent = 'Afișez modulele principale, astfel poți vedea rapid ce face fiecare secțiune.';
+            } else if (action === 'schema') {
+                text.textContent = 'Afișez schema bazei de date pentru tabelele cheie și legăturile între ele.';
+            } else if (action === 'flow') {
+                text.textContent = 'Afișez fluxul utilizator pentru navigare clară în aplicație.';
+            }
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem('theme');
             const button = document.querySelector('.theme-toggle');
